@@ -42,8 +42,9 @@ module GooglePlaces
       language = options.delete(:language)
       radius = options.delete(:radius)
       retry_options = options.delete(:retry_options) || {}
-      types  = options.delete(:types)
+      types = options.delete(:types)
       components = options.delete(:components)
+      session_token = options.delete(:session_token)
 
       options = {
         :input => input,
@@ -68,6 +69,10 @@ module GooglePlaces
 
       if components
         options[:components] = components
+      end
+
+      if session_token
+        options[:sessiontoken] = session_token
       end
 
       request(:predictions_by_input, options)
