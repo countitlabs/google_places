@@ -52,13 +52,14 @@ module GooglePlaces
     # @see https://developers.google.com/maps/documentation/places/supported_types List of supported types
     def self.list(lat, lng, api_key, options = {})
       location = Location.new(lat, lng)
+      session_token = options.delete(:session_token)
       multipage_request = !!options.delete(:multipage)
       rankby = options.delete(:rankby)
       radius = options.delete(:radius) || 1000 if rankby.nil? || rankby =~ /prominence/
       types  = options.delete(:types)
-      name  = options.delete(:name)
+      name = options.delete(:name)
       keyword = options.delete(:keyword)
-      language  = options.delete(:language)
+      language = options.delete(:language)
       exclude = options.delete(:exclude) || []
       retry_options = options.delete(:retry_options) || {}
       zagat_selected = options.delete(:zagat_selected) || false
@@ -66,6 +67,7 @@ module GooglePlaces
 
       options = {
         :location => location.format,
+        :session_token => session_token,
         :radius => radius,
         :rankby => rankby,
         :key => api_key,
