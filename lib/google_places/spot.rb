@@ -67,7 +67,7 @@ module GooglePlaces
 
       options = {
         :location => location.format,
-        :session_token => session_token,
+        :sessiontoken => session_token,
         :radius => radius,
         :rankby => rankby,
         :key => api_key,
