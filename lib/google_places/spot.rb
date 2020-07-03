@@ -126,6 +126,7 @@ module GooglePlaces
       start_lng = bounds[:start_point][:lng]
       end_lat = bounds[:end_point][:lat]
       end_lng = bounds[:end_point][:lng]
+      session_token = options.delete(:session_token)
       rect = Rectangle.new(start_lat, start_lng, end_lat, end_lng)
       multipage_request = !!options.delete(:multipage)
       rankby = options.delete(:rankby)
@@ -142,6 +143,7 @@ module GooglePlaces
         :bounds => rect.format,
         :key => api_key,
         :language => language,
+        :sessiontoken => session_token,
         :retry_options => retry_options
       }
 
@@ -199,6 +201,7 @@ module GooglePlaces
       location = Location.new(lat, lng)
       multipage_request = !!options.delete(:multipage)
       radius = options.delete(:radius) || 1000
+      session_token = options.delete(:session_token)
       types  = options.delete(:types)
       name  = options.delete(:name)
       keyword = options.delete(:keyword)
@@ -215,6 +218,7 @@ module GooglePlaces
         :key => api_key,
         :name => name,
         :keyword => keyword,
+        :sessiontoken => session_token,
         :retry_options => retry_options
       }
 
@@ -257,6 +261,7 @@ module GooglePlaces
     def self.find(place_id, api_key, options = {})
       fields = options.delete(:fields)
       language  = options.delete(:language)
+      session_token = options.delete(:session_token)
       region = options.delete(:region)
       retry_options = options.delete(:retry_options) || {}
       extensions = options.delete(:review_summary) ? 'review_summary' : nil
@@ -267,6 +272,7 @@ module GooglePlaces
         :language => language,
         :extensions => extensions,
         :retry_options => retry_options,
+        :sessiontoken => session_token,
         :fields => fields
       }
       request_options[:region] = region unless region.nil?
@@ -355,6 +361,7 @@ module GooglePlaces
       multipage_request = !!options.delete(:multipage)
       location = Location.new(options.delete(:lat), options.delete(:lng)) if with_location
       radius = options.delete(:radius) if with_radius
+      session_token = options.delete(:session_token)
       rankby = options.delete(:rankby)
       language = options.delete(:language)
       region = options.delete(:region)
@@ -369,6 +376,7 @@ module GooglePlaces
         :key => api_key,
         :rankby => rankby,
         :language => language,
+        :sessiontoken => session_token,
         :retry_options => retry_options
       }
 
